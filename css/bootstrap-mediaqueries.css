@@ -1,0 +1,223 @@
+	
+@media only screen and (min-width: 1366px) {
+	.main{
+		height: 100rem;
+	}
+	}
+	div#price {
+        position: static;
+        height: 27rem;
+        width: 37rem;
+    }
+	.table-responsive-sm {
+	   width: 500px;
+       position: static;
+ 
+       font-size: x-large;
+	   }
+	.text-center {
+       font-size: initial;
+	   }
+       .select {
+        margin-left: 628px;
+        margin-top: 164px;
+        position: absolute;
+        font-size: smaller;
+    }
+	.addons {
+        margin-left: 625px;
+        margin-top: 224px;
+        position: absolute;
+        font-size: small;
+    }
+    .add {
+        margin-left: 850px;
+        margin-top: 592px;
+        position: absolute;
+    }
+     .img {
+        margin-left: 642px;
+        margin-top: 305px;
+        position: absolute;
+        font-size: xx-large;
+    }
+    .label img {
+        height: 71px;
+        width: 75px;
+        transition-duration: 0.2s;
+        transform-origin: 40% 40%;
+    }
+	 .header_price {
+		border: 1px white;
+		background-color: black;
+		margin: 10px;
+		color: #39FF14;
+	}
+	.SD {
+        margin-left: 739px;
+        margin-top: -374px;
+        position: absolute;
+        color: white;
+        font-size: small;
+    }
+	.Sd {
+        margin-left: 851px;
+        margin-top: -376px;    
+        position: absolute;
+        color: white;
+        font-size: small;
+    }
+    .dt {
+    margin-left: 979px;
+    margin-top: -377px;
+    position: absolute;
+    color: #f8f9fa;
+    font-size: small;
+}
+.header_price {
+    background-color: black;
+    width: 402px;
+    color: #39FF14;
+    margin-left: 959px;
+    margin-top: 19px;
+    position: absolute;
+    font-size: xxx-large;
+}
+	 .date{
+        margin-left: -159px;
+        width: 900px;
+        margin-top: 172px;
+        position: absolute;
+        color: #f8f9fa;
+        font-size: medium;
+	 }
+     .date1{
+        width: 402px;
+        position: static;
+        font-size: large;
+  }
+/* .menu-items{
+		width: 200px;
+
+	 } */
+
+	 .bt {
+        margin-left: 157px;
+        margin-top: 73px;
+        position: absolute;
+        height: 387px;
+        width: 669px;
+    }
+/* 	 
+	
+    @media (min-width: 1694px) {
+        .main{
+            height: 100rem;
+        }
+        }
+        div#price {
+            position: static;
+            height: 27rem;
+            width: 37rem;
+        }
+        .table-responsive-sm {
+           width: 500px;
+           position: static;
+     
+           font-size: x-large;
+           }
+        .text-center {
+           font-size: initial;
+           }
+           .select {
+            margin-left: 628px;
+            margin-top: 164px;
+            position: absolute;
+            font-size: smaller;
+        }
+        .addons {
+            margin-left: 625px;
+            margin-top: 224px;
+            position: absolute;
+            font-size: small;
+        }
+        .add {
+            margin-left: 850px;
+            margin-top: 592px;
+            position: absolute;
+        }
+         .img {
+            margin-left: 642px;
+            margin-top: 305px;
+            position: absolute;
+            font-size: xx-large;
+        }
+        .label img {
+            height: 71px;
+            width: 75px;
+            transition-duration: 0.2s;
+            transform-origin: 40% 40%;
+        }
+         .header_price {
+            border: 1px white;
+            background-color: black;
+            margin: 10px;
+            color: #39FF14;
+        }
+        .SD {
+            margin-left: 739px;
+            margin-top: -374px;
+            position: absolute;
+            color: white;
+            font-size: small;
+        }
+        .Sd {
+            margin-left: 851px;
+            margin-top: -376px;    
+            position: absolute;
+            color: white;
+            font-size: small;
+        }
+        .dt {
+        margin-left: 979px;
+        margin-top: -377px;
+        position: absolute;
+        color: #f8f9fa;
+        font-size: small;
+    }
+    .header_price {
+        background-color: black;
+        width: 402px;
+        color: #39FF14;
+        margin-left: 959px;
+        margin-top: 19px;
+        position: absolute;
+        font-size: xxx-large;
+    }
+         .date{
+            margin-left: -159px;
+            width: 900px;
+            margin-top: 172px;
+            position: absolute;
+            color: #f8f9fa;
+            font-size: medium;
+         }
+         .date1{
+            width: 402px;
+            position: static;
+            font-size: large;
+      }
+    /* .menu-items{
+            width: 200px;
+    
+         } */
+    
+         /* .bt {
+            margin-left: 157px;
+            margin-top: 73px;
+            position: absolute;
+            height: 387px;
+            width: 669px;
+        }
+          */
+   
