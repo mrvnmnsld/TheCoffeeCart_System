@@ -772,6 +772,85 @@
     <script src="js/demo/chart-area-demo.js"></script>
     <script src="js/demo/chart-pie-demo.js"></script>
 
+    <script>
+        $.ajax({
+            url: "model.php",
+            method: "POST",
+            data: {
+                "action": "getTotalDailySales",
+            },
+            success: function(data) {
+                data = JSON.parse(data)[0];
+                
+                console.log("Daily sales: "+data.total_quantity);
+
+                //append or edit text in dashboard by using data.total_quantity
+            }
+        });
+
+        $.ajax({
+            url: "model.php",
+            method: "POST",
+            data: {
+                "action": "getTotalMonthlySales",
+            },
+            success: function(data) {
+                data = JSON.parse(data)[0];
+                console.log("Monthly sales: "+data.total_quantity);
+
+                //append or edit text in dashboard by using data.total_quantity
+            }
+        });
+
+        $.ajax({
+            url: "model.php",
+            method: "POST",
+            data: {
+                "action": "getTotalCountSales",
+            },
+            success: function(data) {
+                data = JSON.parse(data)[0];
+                console.log("total sales count: "+data.total_quantity);
+
+                //append or edit text in dashboard by using data.total_quantity
+            }
+        });
+
+        $.ajax({
+            url: "model.php",
+            method: "POST",
+            data: {
+                "action": "getTotalCountProducts",
+            },
+            success: function(data) {
+                data = JSON.parse(data)[0];
+                console.log("total sales count: "+data.total_quantity);
+
+                //append or edit text in dashboard by using data.total_quantity
+            }
+        });
+        
+
+        $.ajax({
+            url: "model.php",
+            method: "POST",
+            data: {
+                "action": "getChartData6Months",
+            },
+            success: function(data) {
+                data = JSON.parse(data);
+                console.log(data);
+
+                //append or edit text in dashboard by using data.total_quantity
+            }
+        });
+        
+        
+
+
+
+    </script>
+
 </body>
 
 </html>

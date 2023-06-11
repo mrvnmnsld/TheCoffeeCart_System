@@ -143,6 +143,15 @@
 		
 	}
 
+	if(isset($_POST['action'])&&$_POST['action']=="deleteThisRawMat"){
+		$query = "DELETE FROM raw_mats WHERE id = '".$_POST["id"]."'";
+		$res = mysqli_query($db, $query);
+
+		echo "success";
+	}
+
+	
+
 	
 
 	

@@ -8,13 +8,13 @@ include '../set.php';
 <head>
     <?php include('../templates/head1.php'); ?>
     <style type="text/css">
-        #invoice-item-table tr th {
-            font-size: 12px;
-        }
+    #invoice-item-table tr th {
+        font-size: 12px;
+    }
 
-        ul.typeahead.dropdown-menu {
-            margin-top: 0px;
-        }
+    ul.typeahead.dropdown-menu {
+        margin-top: 0px;
+    }
     </style>
 </head>
 
@@ -36,12 +36,14 @@ include '../set.php';
                     <form id="newRawMatsForm">
                         <div class="form-group">
                             <label for="name">Name:</label>
-                            <input type="text" name="name" class="form-control" id="name" placeholder="Enter name" required>
+                            <input type="text" name="name" class="form-control" id="name" placeholder="Enter name"
+                                required>
                         </div>
 
                         <div class="form-group">
                             <label for="kg">Kilograms:</label>
-                            <input type="number" name="kg" class="form-control" id="kg" placeholder="Enter kilograms" required>
+                            <input type="number" name="kg" class="form-control" id="kg" placeholder="Enter kilograms"
+                                required>
                         </div>
 
                         <div class="form-group">
@@ -86,10 +88,12 @@ include '../set.php';
         // 	echo '<script>swal("Unsuccesful","Customer not found!","error");</script>';
         // }
         ?>
-        <div>
+        <div style="overflow: auto;">
             <form method="post" id="invoice_id">
                 <div class="table-responsive mt-5 pl-5 pr-5">
-                    <button type="button" class="btn btn-info border mb-4" onclick="$('#myModal').modal('show');" style="padding:5px;"><span class="badge badge-info"><i class="fas fa-plus"></i> Add new material</span></button>
+                    <button type="button" class="btn btn-info border mb-4" onclick="$('#myModal').modal('show');"
+                        style="padding:5px;"><span class="badge badge-info"><i class="fas fa-plus"></i> Add new
+                            material</span></button>
 
                     <table class="table table-striped table-bordered table-sm">
                         <tr>
@@ -104,6 +108,7 @@ include '../set.php';
                                         <th>Amount</th>
                                         <th>Price/Serving (Applicable only for addons)</th>
                                         <th>supplier</th>
+                                        <th></th>
                                     </tr>
                                 </table>
                             </td>
@@ -132,124 +137,165 @@ include '../set.php';
 <?php include('../delivery/add_supplier.php'); ?>
 
 <script>
-    var rawMatsIds = [];
-    var rawMats = [];
+var rawMatsIds = [];
+var rawMats = [];
 
-    $.ajax({
-        url: "add.php",
-        method: "POST",
-        data: {
-            "action": "getAllRawMats",
-        },
-        success: function(data) {
-            console.log(data);
-            data = JSON.parse(data);
+$.ajax({
+    url: "add.php",
+    method: "POST",
+    data: {
+        "action": "getAllRawMats",
+    },
+    success: function(data) {
+        console.log(data);
+        data = JSON.parse(data);
 
-            for (let index = 0; index < data.length; index++) {
-                rawMatsIds.push(data[index].id);
-                rawMats.push(data[index]);
-                
+        for (let index = 0; index < data.length; index++) {
+            rawMatsIds.push(data[index].id);
+            rawMats.push(data[index]);
 
-                $("#invoice-item-table").append(
-                    '<tr>' +
-                    '    <td><input type="text" value="' + data[index].name + '" class="form-control form-control-sm input-sm name" readonly placeholder="' + data[index].name + '" /></td>' +
-                    '    <td><input type="text" value="' + data[index].remarks + '" class="form-control form-control-sm input-sm name" readonly placeholder="' + data[index].remarks + '" /></td>' +
-                    '    <td><input type="text" value="' + data[index].kg + '" class="form-control form-control-sm input-sm kg" placeholder="' + data[index].kg + '" /></td>' +
-                    '    <td><input type="text" value="' + data[index].price_per_serving + '" class="form-control form-control-sm input-sm price_per_serving" placeholder="' + data[index].price_per_serving + '" /></td>' +
-                    '    <td><select type="text" value="' + data[index].supplier_id + '" class="form-control form-control-sm input-sm supplier"><option value="">Please select a supplier</option></select></td>' +
-                    '</tr>'
-                );
-            }
+
+            $("#invoice-item-table").append(
+                '<tr>' +
+                '    <td><input type="text" value="' + data[index].name +
+                '" class="form-control form-control-sm input-sm name" readonly placeholder="' + data[
+                    index].name + '" /></td>' +
+                '    <td><input type="text" value="' + data[index].remarks +
+                '" class="form-control form-control-sm input-sm name" readonly placeholder="' + data[
+                    index].remarks + '" /></td>' +
+                '    <td><input type="text" value="' + data[index].kg +
+                '" class="form-control form-control-sm input-sm kg" placeholder="' + data[index].kg +
+                '" /></td>' +
+                '    <td><input type="text" value="' + data[index].price_per_serving +
+                '" class="form-control form-control-sm input-sm price_per_serving" placeholder="' +
+                data[index].price_per_serving + '" /></td>' +
+                '    <td><select type="text" value="' + data[index].supplier_id +
+                '" class="form-control form-control-sm input-sm supplier"><option value="">Please select a supplier</option></select></td>' +
+                '    <td><button type="button" class="btn btn-danger btn-sm" onclick="deleteThis(' +
+                data[index].id + ')"><i class="fa fa-trash"></i></button></td>' +
+                '</tr>'
+            );
         }
+    }
+});
+
+$.ajax({
+    url: "add.php",
+    method: "POST",
+    data: {
+        "action": "getAllSupplier",
+    },
+    success: function(data) {
+        data = JSON.parse(data);
+
+        for (let index = 0; index < data.length; index++) {
+            $("#supplier, .supplier").append(
+                '<option value="' + data[index].supplier_id + '">' +
+                data[index].company_name +
+                '</option>'
+            );
+        }
+
+        $('.supplier').each(function(index) {
+            $(this).val(rawMats[index].supplier_id);
+        });
+
+    }
+});
+
+$("#save_btn").on("click", function() {
+    var kg = [];
+    var supplier = [];
+    var price_per_serving = [];
+
+    $('.kg').each(function() {
+        kg.push($(this).val());
+    });
+
+    $('.supplier').each(function() {
+        supplier.push($(this).val());
+    });
+
+    $('.price_per_serving').each(function() {
+        price_per_serving.push($(this).val());
     });
 
     $.ajax({
         url: "add.php",
         method: "POST",
         data: {
-            "action": "getAllSupplier",
+            "action": "saveNewRawMats",
+            "rawMatsIds": rawMatsIds,
+            "supplier": supplier,
+            "kg": kg,
+            "price_per_serving": price_per_serving,
         },
         success: function(data) {
-            data = JSON.parse(data);
-
-            for (let index = 0; index < data.length; index++) {
-                $("#supplier, .supplier").append(
-                    '<option value="' + data[index].supplier_id + '">' +
-                    data[index].company_name +
-                    '</option>'
-                );
+            if (data == "success") {
+                swal("", "Successfully saved edits", "success").then(() => {
+                    location.reload();
+                });
+            } else {
+                swal("", "Please contact system admin and report this error", "error");
             }
-
-            $('.supplier').each(function(index) {
-                $(this).val(rawMats[index].supplier_id);
-            });
-
         }
     });
+})
 
-    $("#save_btn").on("click", function() {
-        var kg = [];
-        var supplier = [];
-        var price_per_serving = [];
+document.getElementById("newRawMatsForm").addEventListener("submit", function(e) {
+    e.preventDefault();
 
-        $('.kg').each(function() {
-            kg.push($(this).val());
-        });
+    var dataToSend = $("#newRawMatsForm").serializeArray();
+    console.log(dataToSend);
 
-        $('.supplier').each(function() {
-            supplier.push($(this).val());
-        });
-
-        $('.price_per_serving').each(function() {
-            price_per_serving.push($(this).val());
-        });        
-
-        $.ajax({
-            url: "add.php",
-            method: "POST",
-            data: {
-                "action": "saveNewRawMats",
-                "rawMatsIds": rawMatsIds,
-                "supplier": supplier,
-                "kg": kg,
-                "price_per_serving": price_per_serving,
-            },
-            success: function(data) {
-                if (data == "success") {
-                    swal("", "Successfully saved edits", "success").then(() => {
-                        location.reload();
-                    });
-                } else {
-                    swal("", "Please contact system admin and report this error", "error");
-                }
-            }
-        });
+    dataToSend.push({
+        "name": "action",
+        "value": "addNewRawMats",
     })
 
-    document.getElementById("newRawMatsForm").addEventListener("submit", function(e) {
-        e.preventDefault();
-
-        var dataToSend = $("#newRawMatsForm").serializeArray();
-        console.log(dataToSend);
-
-        dataToSend.push({
-            "name":"action",
-            "value":"addNewRawMats",
-        })
-
-        $.ajax({
-            url: "add.php",
-            method: "POST",
-            data: dataToSend,
-            success: function(data) {
-                if (data == "success") {
-                    swal("", "Successfully saved new raw material", "success").then(() => {
-                        location.reload();
-                    });
-                } else {
-                    swal("", "Please contact system admin and report this error", "error");
-                }
+    $.ajax({
+        url: "add.php",
+        method: "POST",
+        data: dataToSend,
+        success: function(data) {
+            if (data == "success") {
+                swal("", "Successfully saved new raw material", "success").then(() => {
+                    location.reload();
+                });
+            } else {
+                swal("", "Please contact system admin and report this error", "error");
             }
-        });
+        }
     });
+});
+
+function deleteThis(id) {
+    swal({
+        title: "Are you sure you want to delete this material?",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    }).then((confirmed) => {
+        if (confirmed) {
+            $.ajax({
+                url: "add.php",
+                method: "POST",
+                data: {
+                    "action": "deleteThisRawMat",
+                    "id": id,
+                },
+                success: function(data) {
+                    if (data == "success") {
+                        swal("", "Successfully saved edits", "success").then(() => {
+                            location.reload();
+                        });
+                    } else {
+                        swal("", "Please contact system admin and report this error", "error");
+                    }
+                }
+            });
+        }
+    });
+
+}
 </script>
