@@ -113,6 +113,8 @@ $productsOnlyValue = 0;
                                 
                                 while($row = mysqli_fetch_assoc($result)){       
                                   $productsOnlyValue = $productsOnlyValue+floatval($row['sell_price'])
+				                          //  bug fix
+
                             ?>
                             <tr>
                                     <td><?=$row['product_name']?></td>

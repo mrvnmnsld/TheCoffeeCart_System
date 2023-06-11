@@ -59,14 +59,20 @@ if(isset($_POST['product'])){
 				$product_clean = mysqli_real_escape_string($db, $product[$count]);
 				$quantity_clean = mysqli_real_escape_string($db, $quantity[$count]);
 				
-				if($product_clean != '' && $quantity_clean != '' && $price_clean != '' && $reciept_clean != ''){
-					$insertSales = "
-						INSERT INTO sales_product(reciept_no,product_id,price,qty) 
-						VALUES('$reciept_clean','$product_clean','".floatval($price_clean)*floatval($quantity_clean)."','$quantity_clean')
-					";
+				
+				//  bug fix
 
-					mysqli_query($db, $insertSales);
-				}
+					if($product_clean != '' && $quantity_clean != '' && $price_clean != '' && $reciept_clean != ''){
+						$insertSales = "
+							INSERT INTO sales_product(reciept_no,product_id,price,qty) 
+							VALUES('$reciept_clean','$product_clean','".floatval($price_clean)*floatval($quantity_clean)."','$quantity_clean')
+						";
+
+						mysqli_query($db, $insertSales);
+					}
+
+				//  bug fix
+
 			} 
 
 			$updateCoffeeQuery = "UPDATE raw_mats SET kg='".$_POST["newCoffeeAmount"]."' WHERE name='Coffee'";
