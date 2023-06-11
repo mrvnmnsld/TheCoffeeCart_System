@@ -596,6 +596,7 @@ if (isset($_SESSION['username'])) {
 																buttons: "Okay",
 															})
 															.then((okay) => {
+																console.log(okay);
 																if (okay) {
 																	window.location.href = 'print_view.php?totalvalue=' + TotalValue + '&product=' + product + '&price=' + price + '&user=' + user + '&quantity=' + quantity + '&discount=' + discount;
 																}

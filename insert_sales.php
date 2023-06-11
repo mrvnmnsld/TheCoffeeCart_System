@@ -53,15 +53,19 @@ if(isset($_POST['product'])){
 	 		$insert 	= mysqli_query($db,$query1);
 
 			for($count = 0; $count < count($product); $count++){
+				
 				$price_clean = mysqli_real_escape_string($db, $price[$count]);
 				$reciept_clean = mysqli_real_escape_string($db, $reciept[$count]);
 				$product_clean = mysqli_real_escape_string($db, $product[$count]);
 				$quantity_clean = mysqli_real_escape_string($db, $quantity[$count]);
+				
 				if($product_clean != '' && $quantity_clean != '' && $price_clean != '' && $reciept_clean != ''){
-					$query .= "
+					$insertSales = "
 						INSERT INTO sales_product(reciept_no,product_id,price,qty) 
-						VALUES($reciept_clean,$product_clean,$price_clean,$quantity_clean);
-						";
+						VALUES('$reciept_clean','$product_clean','".floatval($price_clean)*floatval($quantity_clean)."','$quantity_clean')
+					";
+
+					mysqli_query($db, $insertSales);
 				}
 			} 
 
@@ -74,29 +78,24 @@ if(isset($_POST['product'])){
 			$updateMilkQuery = "UPDATE raw_mats SET kg='".$_POST["newMilkAmount"]."' WHERE name='Milk'";
 			mysqli_query($db, $updateMilkQuery);
 
-			for ($i=0; $i < count($_POST["newAddOnsKeysGlobal"]); $i++) { 
-				$updateMilkQuery = "UPDATE raw_mats SET kg='".$_POST["newAddOnsAmountGlobal"][$i]."' WHERE name='".$_POST["newAddOnsKeysGlobal"][$i]."'";
-				mysqli_query($db, $updateMilkQuery);
+			if(isset($_POST["newAddOnsKeysGlobal"])){
+				for ($i=0; $i < count($_POST["newAddOnsKeysGlobal"]); $i++) { 
+					$updateMilkQuery = "UPDATE raw_mats SET kg='".$_POST["newAddOnsAmountGlobal"][$i]."' WHERE name='".$_POST["newAddOnsKeysGlobal"][$i]."'";
+					mysqli_query($db, $updateMilkQuery);
+				}
 			}
 
 			for ($i=0; $i < count($_POST["rawMatsIdsUsed"]); $i++) { 
 				$updateMilkQuery = "INSERT INTO raw_mats_sales (raw_mats_id,quantity,sales_id,date_created) VALUES('".$_POST["rawMatsIdsUsed"][$i][0]."','".$_POST["rawMatsIdsUsed"][$i][1]."','".$result."','".date('Y-m-d')."')";
 				mysqli_query($db, $updateMilkQuery);
 			}
-			
 
 		}else{
-			echo "failure";
+			echo "failure 1";
 		}
-	
-		if ($query != ''){
-			if(mysqli_multi_query($db,$query)){
-				echo "success";
-			}else{
-				echo "failure";
-			}
-		}else{
-			echo 'failure';
-		}
+
+		echo "success";
+		
+
 	// }
 }

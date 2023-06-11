@@ -10,6 +10,7 @@ $new_product = explode(",", $product);
 $new_qty = explode(",", $quantity);
 $new_discount = explode(",", $discount);
 $i = 0;
+$productsOnlyValue = 0;
 
 ?>
 
@@ -99,7 +100,7 @@ $i = 0;
             <td class="item"><h2>Menu</h2></td>
             <td class="Hours"><h2>Price</h2></td>
             <td class="Hours"><h2>Qty</h2></td>
-            <td class="Dsc"><h2>Discount</h2></td>
+            <!-- <td class="Dsc"><h2>Discount</h2></td> -->
             <td class="Rate"><h2>Total Price</h2></td>
                     <?php
 						
@@ -107,24 +108,17 @@ $i = 0;
                     foreach ($new_product as $key) {
                        
                                 include('server/connection.php');
-                                // $sql = "SELECT sales_product.product_id,sales_product.price	,sales_product.qty,products.product_name, products.sell_price FROM sales_product INNER JOIN products ON products.product_no = sales_product.product_id  WHERE products.product_no = $key limit 1";
-                                $sql = "SELECT sales_product.product_id, sales_product.price, sales_product.qty, 
-                                              products.product_name, products.sell_price, sales.discount, sales.Discounttype 
-                                        FROM sales_product
-                                              LEFT JOIN products ON
-                                                products.product_no = sales_product.product_id
-                                              LEFT JOIN sales ON
-                                                sales.reciept_no = sales_product.reciept_no
-                                              WHERE sales_product.product_id = $key ORDER BY sales.date DESC limit 1";
+                                $sql = "SELECT * FROM products WHERE product_no = $key limit 1";
                                 $result	= mysqli_query($db, $sql);
                                 
                                 while($row = mysqli_fetch_assoc($result)){       
+                                  $productsOnlyValue = $productsOnlyValue+floatval($row['sell_price'])
                             ?>
                             <tr>
                                     <td><?=$row['product_name']?></td>
                                     <td><?=$row['sell_price']?></td>
                                     <td><?=$new_qty[$i]?></td>
-                                    <td><?=$row['discount']?></td>
+                                    <!-- <td><?=$row['discount']?></td> -->
                                     <td><?=$row['sell_price'] * $new_qty[$i]?></td>
                                 </tr>
                                 
@@ -133,8 +127,23 @@ $i = 0;
                         $i += 1;
 
                         }
+
+                        $addOnTotal = $TotalValue-$productsOnlyValue;
+
+                        
                             ?>
-               </tbody>
+
+
+              </tbody>
+
+              <tr class="">
+                <td>Add-ons:</td>
+                <td></td>
+                <td></td>
+                <td><?=$addOnTotal?></td>
+
+              <tr>
+
             </table>
             <hr>     
 
